@@ -1,13 +1,29 @@
 //rfc
 import React from "react";
-import { useState, useDispatch } from "react";
-import data from "./danhSachGhe.json"
+import { useSelector, useDispatch } from "react-redux";
+// import data from "./danhSachGhe.json"
 
 export default function TicketBooking() {
-  console.log(data);
+  let data = useSelector((state) => state.danhSachGheReducer.dsGhe);
+
+  let colData = data[0];
+
+  console.log(colData);
+
+  let [a, ...rest] = colData;
+
+  console.log(a);
+
+  console.log(a.hang, a.danhSachGhe);
+
+  let { danhSachGhe } = a;
+
+  // console.log(data);
   return (
     <div className="bg-ticket-book bg-no-repeat bg-center bg-cover ">
-      <h1 className="text-3xl font-bold text-center py-3">MOVIE SEAT SELECTION</h1>
+      <h1 className="text-3xl font-bold text-center py-3">
+        MOVIE SEAT SELECTION
+      </h1>
       <div style={{}} className="px-4 mx-auto bg-gray-200 t h-[800px] w-7/12">
         <p className="text-center py-3">
           Fill The Required Details Below And Select Your Seats
@@ -39,8 +55,19 @@ export default function TicketBooking() {
         ></div>
         <div style={{ display: "inline" }}>Empty Seat</div>
         {/* -------------------------------------------------- */}
-        <div id="content"></div>
+        <div id="content" style={{}} className="">
+          <p>abc</p>
+          {danhSachGhe.map((ghe) => {
+            return <span className="px-5"> {ghe.soGhe}</span>;
+          })}
+          <br />
+        </div>
         {/* -------------------------------------------------- */}
+        <div>
+          {colData.map((item) => {
+            return <div className="py-2">{item.hang}</div>;
+          })}
+        </div>
         <br />
         <p
           style={{ display: "block", width: "700px" }}

@@ -1,15 +1,19 @@
 //rxslice
 import { createSlice } from "@reduxjs/toolkit";
-import data from "../../ticketBooking/danhSachGhe.json"
+import data from "../../ticketBooking/danhSachGhe.json";
 
-console.log(data);
+// console.log(data);
 
-const initialState = {};
- 
+const initialState = {
+  dsGhe: [data],
+};
+
 const danhSachGheReducer = createSlice({
-  name: "dsGheReducer",
+  name: "danhSachGheReducer",
   initialState,
-  reducers: {},
+  reducers: {
+    
+  },
 });
 
 export const {} = danhSachGheReducer.actions;
