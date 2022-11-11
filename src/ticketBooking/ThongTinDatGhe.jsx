@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class ThongTinDatGhe extends Component {
+class ThongTinDatGhe extends Component {
   render() {
     return (
       <div>
@@ -30,21 +31,51 @@ export default class ThongTinDatGhe extends Component {
                 <th>Huỷ</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Demo</td>
-                <td>Demo</td>
-                <td>Demo</td>
-              </tr>
-              <tr>
-                <td>Demo</td>
-                <td>Demo</td>
-                <td>Demo</td>
-              </tr>
+            <tbody className="text-warning">
+              {this.props.danhSachGheDangDat.map((gheDangDat, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{gheDangDat.soGhe}</td>
+                    <td>{gheDangDat.gia.toLocaleString()}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          this.props.dispatch({
+                            type: "HUY_GHE",
+                            soGhe: gheDangDat.soGhe,
+                          });
+                        }}
+                      >
+                        Huỷ
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
+            <tfoot>
+              <tr className="text-warning">
+                <td></td>
+                <td>Tổng tiền</td>
+                <td>{this.props.danhSachGheDangDat
+                    .reduce((tongTien, gheDangDat, index) => {
+                      return tongTien += gheDangDat.gia;
+                    }, 0)
+                    .toLocaleString()}
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    danhSachGheDangDat: state.btDatVeReducer.danhSachGheDangDat,
+  };
+};
+
+export default connect(mapStateToProps)(ThongTinDatGhe);
